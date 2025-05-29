@@ -21,10 +21,10 @@ class MainTabBarController: UITabBarController {
         let mintVC = UINavigationController(rootViewController: MineViewController())
 
         // 配置TabBarItem
-        homeVC.tabBarItem = createItemTabbar(title: "首页", imageName: "house", selectedImageName: "house.fill")
-        homeVC.tabBarItem = createItemTabbar(title: "发现", imageName: "magnifyingglass", selectedImageName: "magnifyingglass.fill")
-        homeVC.tabBarItem = createItemTabbar(title: "项目", imageName: "folder", selectedImageName: "folder.fill")
-        homeVC.tabBarItem = createItemTabbar(title: "我的", imageName: "person", selectedImageName: "person.fill")
+        homeVC.tabBarItem = createItemTabbar(title: "首页", imageName: "home_nor", selectedImageName: "home_sel")
+        discoverVC.tabBarItem = createItemTabbar(title: "发现", imageName: "find_nor", selectedImageName: "find_sel")
+        hotVC.tabBarItem = createItemTabbar(title: "项目", imageName: "hot_nor", selectedImageName: "hot_sel")
+        mintVC.tabBarItem = createItemTabbar(title: "我的", imageName: "mine_nor", selectedImageName: "mine_sel")
         viewControllers = [homeVC, discoverVC, hotVC, mintVC]
         selectedIndex = 0
     }
@@ -32,9 +32,20 @@ class MainTabBarController: UITabBarController {
     /// 创建ItemTabBar
     private func createItemTabbar(title: String, imageName: String, selectedImageName: String) -> UITabBarItem {
         let item = UITabBarItem(
-            title: title, image: UIImage(systemName: imageName), selectedImage: UIImage(systemName: selectedImageName)
+            title: title, image: UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: selectedImageName)?.withRenderingMode(.alwaysOriginal)
         )
-        item.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 12)], for: .normal)
+        
+        // 未选中状态
+        item.setTitleTextAttributes([
+            .foregroundColor: UIColor.gray,
+            .font: UIFont.systemFont(ofSize: 12)
+        ], for: .normal)
+
+        // 选中状态
+        item.setTitleTextAttributes([
+            .foregroundColor: UIColor.appPrimary,
+            .font: UIFont.systemFont(ofSize: 12, weight: .bold)
+        ], for: .selected)
         return item
     }
 

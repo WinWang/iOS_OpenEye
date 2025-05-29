@@ -9,9 +9,8 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
-    
+
     // 启动回调
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -19,18 +18,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         // 全局配置
         configureAppearance()
-        print("didFinishLaunchingWithOptions>>>>>>>>>>")
         return true
     }
 
     private func configureAppearance() {
         // 配置全局UI样式
-        UITabBar.appearance().tintColor = .systemBlue
+        UITabBar.appearance().tintColor = .systemRed
         UITabBar.appearance().unselectedItemTintColor = .gray
         UITabBar.appearance().backgroundColor = .systemBackground
 
-        UINavigationBar.appearance().tintColor = .systemBlue
+        UINavigationBar.appearance().tintColor = .appPrimary
         UINavigationBar.appearance().prefersLargeTitles = true
+        
+        // 全局配置返回按钮
+        let barButtonItemAppearance = UIBarButtonItem.appearance()
+        barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
+        barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
+        
     }
 
     // MARK: UISceneSession Lifecycle

@@ -9,9 +9,10 @@ import UIKit
 
 class BaseViewController: UIViewController {
     override func viewDidLoad() {
-        title = "首页"
-        view.backgroundColor = .green
+        initUI()
+        // 初始化View
         initView()
+        // 初始化数据
         initData()
     }
 
@@ -20,4 +21,12 @@ class BaseViewController: UIViewController {
 
     /// 初始化数据
     public func initData() {}
+
+    /// 初始化父组件UI
+    private func initUI() {
+        // 全局背景色默认白色
+        view.backgroundColor = .white
+        // 隐藏UINavigationController
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 }
