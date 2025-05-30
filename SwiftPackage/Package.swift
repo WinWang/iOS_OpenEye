@@ -15,7 +15,9 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.7.1"),
         .package(url: "https://github.com/Moya/Moya.git", from: "15.0.3"),
-        .package(url: "https://github.com/Instagram/IGListKit.git", from: "5.0.0")
+        .package(url: "https://github.com/Instagram/IGListKit.git", from: "5.0.0"),
+        .package(url: "https://github.com/scalessec/Toast-Swift.git", from: "5.1.1"),
+        .package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.8.5"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -25,7 +27,9 @@ let package = Package(
             dependencies: [
                 .product(name: "SnapKit", package: "SnapKit"),
                 .product(name: "Moya", package: "Moya"),
-                .product(name: "IGListKit", package: "IGListKit")
+                .product(name: "IGListKit", package: "IGListKit"),
+                .product(name: "Toast", package: "Toast-Swift"),
+                .product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
             ],
         ),
     ]

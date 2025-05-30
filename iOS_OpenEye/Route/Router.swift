@@ -21,6 +21,18 @@ final class Router {
             guard let id = values["id"] as? String else { return nil }
             return DetailViewController(id: id)
         }
+        // 测试页面
+        navigator.register(RoutePath.testPattern) { _, _, _ in
+            TestViewController()
+        }
+        // CollectionView测试页面
+        navigator.register(RoutePath.collectionViewPattern) { _, _, _ in
+            TestCollectionViewController()
+        }
+        // 刷新页面
+        navigator.register(RoutePath.refreshPattern) { _, _, _ in
+            TestRefreshViewController()
+        }
     }
 
     /// 路由push方法

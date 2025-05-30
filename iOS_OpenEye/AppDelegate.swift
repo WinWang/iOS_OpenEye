@@ -16,9 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
+        initApp()
+        return true
+    }
+
+    // App 启动初始化回调
+    private func initApp() {
         // 全局配置
         configureAppearance()
-        return true
+        // 初始化日志
+        initLogger()
     }
 
     private func configureAppearance() {
@@ -29,12 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UINavigationBar.appearance().tintColor = .appPrimary
         UINavigationBar.appearance().prefersLargeTitles = true
-        
+
         // 全局配置返回按钮
         let barButtonItemAppearance = UIBarButtonItem.appearance()
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
-        
     }
 
     // MARK: UISceneSession Lifecycle

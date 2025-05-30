@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B0553BF82DE1A57200C70BB5 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B0553BF72DE1A57200C70BB5 /* SwiftPackage */; };
+		B3D53C972DE95AAE00231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53C962DE95AAE00231A82 /* SwiftPackage */; };
+		B3D53CE32DE95B7500231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53CE22DE95B7500231A82 /* SwiftPackage */; };
+		B3D53CE62DE9774100231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53CE52DE9774100231A82 /* SwiftPackage */; };
 		B3E503A52DE1A8DC00E535DE /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3E503A42DE1A8DC00E535DE /* SwiftPackage */; };
 		F3CBB45E089E44A53AB6993B /* libPods-iOS_OpenEye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E317E950FD36FE2A7A3200D /* libPods-iOS_OpenEye.a */; };
 /* End PBXBuildFile section */
@@ -33,6 +36,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E503A52DE1A8DC00E535DE /* SwiftPackage in Frameworks */,
+				B3D53CE32DE95B7500231A82 /* SwiftPackage in Frameworks */,
+				B3D53C972DE95AAE00231A82 /* SwiftPackage in Frameworks */,
+				B3D53CE62DE9774100231A82 /* SwiftPackage in Frameworks */,
 				F3CBB45E089E44A53AB6993B /* libPods-iOS_OpenEye.a in Frameworks */,
 				B0553BF82DE1A57200C70BB5 /* SwiftPackage in Frameworks */,
 			);
@@ -87,6 +93,7 @@
 				B33235522DDDEAA50040E8D3 /* Sources */,
 				B33235532DDDEAA50040E8D3 /* Frameworks */,
 				B33235542DDDEAA50040E8D3 /* Resources */,
+				C758A3F6D2E5B0F5F765BA5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,7 +132,7 @@
 			mainGroup = B332354D2DDDEAA50040E8D3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				B3E503A32DE1A8DC00E535DE /* XCLocalSwiftPackageReference "SwiftPackage" */,
+				B3D53CE42DE9774100231A82 /* XCLocalSwiftPackageReference "SwiftPackage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B33235572DDDEAA50040E8D3 /* Products */;
@@ -168,6 +175,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C758A3F6D2E5B0F5F765BA5F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iOS_OpenEye/Pods-iOS_OpenEye-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iOS_OpenEye/Pods-iOS_OpenEye-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOS_OpenEye/Pods-iOS_OpenEye-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -312,6 +340,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-OpenEye-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "开眼";
@@ -343,6 +372,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-OpenEye-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "开眼";
@@ -388,7 +418,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		B3E503A32DE1A8DC00E535DE /* XCLocalSwiftPackageReference "SwiftPackage" */ = {
+		B3D53CE42DE9774100231A82 /* XCLocalSwiftPackageReference "SwiftPackage" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = SwiftPackage;
 		};
@@ -396,6 +426,18 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		B0553BF72DE1A57200C70BB5 /* SwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftPackage;
+		};
+		B3D53C962DE95AAE00231A82 /* SwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftPackage;
+		};
+		B3D53CE22DE95B7500231A82 /* SwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftPackage;
+		};
+		B3D53CE52DE9774100231A82 /* SwiftPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftPackage;
 		};
