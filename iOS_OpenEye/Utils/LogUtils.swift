@@ -8,22 +8,52 @@
 //
 import CocoaLumberjackSwift
 
+let LOG_CONTEXT = 10000
+
 func logDebug(_ msg: String? = nil, tag: String? = nil) {
     if let msg = msg {
-        DDLogDebug(msg)
+        DDLogDebug("\(msg)", level: .debug, context: LOG_CONTEXT, tag: tag)
     }
 }
 
 func logWarn(_ msg: String? = nil, tag: String? = nil) {
     if let msg = msg {
-        DDLogWarn(msg)
+        DDLogWarn("\(msg)", level: .warning, context: LOG_CONTEXT, tag: tag)
+    }
+}
+
+func logInfo(_ msg: String? = nil, tag: String? = nil) {
+    if let msg = msg {
+        DDLogInfo("\(msg)", level: .warning, context: LOG_CONTEXT, tag: tag)
     }
 }
 
 func logError(_ msg: String? = nil, tag: String? = nil) {
     if let msg = msg {
-        DDLogError(msg)
+        DDLogError("\(msg)", level: .error, context: LOG_CONTEXT, tag: tag)
     }
+}
+
+// 打印json数据
+func logJSON(_ json: Any, level: DDLogLevel = .debug, tag: String? = nil) {
+    let formattedJSON = formatJSON(json)
+    switch level {
+    case .debug:
+        logDebug(formattedJSON, tag: tag)
+    case .warning:
+        logWarn(formattedJSON, tag: tag)
+    case .error:
+        logError(formattedJSON, tag: tag)
+    default:
+        logInfo(formattedJSON, tag: tag)
+    }
+}
+
+/**
+ *网络日志打印
+ */
+func logHttp(_ msg: String? = nil) {
+    logDebug(msg, tag: "[_http]")
 }
 
 // 初始化log

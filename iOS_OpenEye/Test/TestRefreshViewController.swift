@@ -7,7 +7,7 @@
 import MJRefresh
 import UIKit
 
-class TestRefreshViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class TestRefreshViewController: BaseViewController<BaseViewModel>, UITableViewDelegate, UITableViewDataSource {
     // 数据源
     private var dataSource = [String]()
     private var currentPage = 1

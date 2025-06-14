@@ -7,7 +7,7 @@ import UIKit
 //
 //  Created by WinWang on 2025/5/26.
 //
-class DetailViewController: BaseViewController {
+class DetailViewController: BaseViewController<BaseViewModel> {
     private let id: String
 
     private lazy var titleBar: CommonTitleBar = {

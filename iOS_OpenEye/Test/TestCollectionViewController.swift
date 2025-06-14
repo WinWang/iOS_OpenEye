@@ -8,7 +8,7 @@ import Kingfisher
 import SnapKit
 import UIKit
 
-class TestCollectionViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class TestCollectionViewController: BaseViewController<BaseViewModel>, UICollectionViewDelegate, UICollectionViewDataSource {
     // 定义数据源
     private let items = (1 ... 30).map { "Item \($0)" }
     // 标题栏

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // 启动回调
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = MainTabBarController()
+        window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
         initApp()
         return true
@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // App 启动初始化回调
     private func initApp() {
+        Router.shared.setUIWindow(uiWindow: window)
         // 全局配置
         configureAppearance()
         // 初始化日志

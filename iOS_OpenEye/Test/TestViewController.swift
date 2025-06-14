@@ -10,7 +10,7 @@ import Kingfisher
 import SnapKit
 import UIKit
 
-class TestViewController: BaseViewController {
+class TestViewController: BaseViewController<BaseViewModel> {
     // 标题栏
     private lazy var titleBar = {
         let titleBar = CommonTitleBar()
@@ -46,12 +46,17 @@ class TestViewController: BaseViewController {
         logDebug("测试日志输出")
     }
 
+    // StateLayout页面的Button
+    private lazy var stateLayoutButton = createButton("StateLayout") { [weak self] _ in
+        Router.shared.push(RoutePath.statePage)
+    }
+
     override func initView() {
         addTitleBar(titleBar)
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         // 添加所有按钮到 stackView
-        for item in [collectionViewButton, refreshButton, toastButton, logDebugButton] {
+        for item in [collectionViewButton, refreshButton, toastButton, logDebugButton, stateLayoutButton] {
             stackView.addArrangedSubview(item)
             item.snp.makeConstraints { make in
                 make.height.equalTo(50) // 统一按钮高度

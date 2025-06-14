@@ -6,7 +6,7 @@ import UIKit
 //
 //  Created by WinWang on 2025/5/23.
 //
-class MineViewController: BaseViewController {
+class MineViewController: BaseViewController<MineViewModel> {
     // avator图片链接
     private let avatorUrl = "https://b0.bdstatic.com/ugc/fC2JcRbgBKl5PFCYkULyoA41673a378a2369741a3c3abcc30b57e2.jpg@h_1280"
 

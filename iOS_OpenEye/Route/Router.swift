@@ -8,6 +8,7 @@ import URLNavigator
 //  Created by WinWang on 2025/5/26.
 //
 final class Router {
+    private var window: UIWindow?
     static let shared = Router()
     private let navigator = Navigator()
 
@@ -16,6 +17,10 @@ final class Router {
     }
 
     private func registerRoutes() {
+        // 首页主页
+        navigator.register(RoutePath.mainPattern) { _, _, _ in
+            MainTabBarController()
+        }
         // 详情页
         navigator.register(RoutePath.detailPattern) { _, values, _ in
             guard let id = values["id"] as? String else { return nil }
@@ -33,6 +38,19 @@ final class Router {
         navigator.register(RoutePath.refreshPattern) { _, _, _ in
             TestRefreshViewController()
         }
+        // 页面状态页面
+        navigator.register(RoutePath.stateLayoutPattern) { _, _, _ in
+            TestStateViewController()
+        }
+    }
+
+    func setUIWindow(uiWindow: UIWindow?) {
+        window = uiWindow
+    }
+
+    /// 切换主控制器
+    func replaceMainController() {
+        window?.rootViewController = MainTabBarController()
     }
 
     /// 路由push方法

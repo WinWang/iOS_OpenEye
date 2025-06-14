@@ -1,0 +1,65 @@
+//
+//  OpenEyeApi.swift
+//  iOS_OpenEye
+//  开眼API定义
+//  Created by WinWang on 2025/6/3.
+//
+
+import Foundation
+import Moya
+
+enum OpenEyeApi {
+    case home(data: String)
+    case focus(pageIndex: Int)
+    case category
+    case topic(pageIndex: Int)
+    case rank(rankType: String)
+}
+
+extension OpenEyeApi: TargetType {
+    var baseURL: URL {
+        return URL(string: NetConfig.BASE_URL)!
+    }
+
+    var path: String {
+        switch self {
+        case .home:
+            return "api/v2/feed"
+        case .focus:
+            return "api/v4/tabs/follow"
+        case .category:
+            return "api/v4/categories"
+        case .topic:
+            return "api/v3/specialTopics"
+        case .rank:
+            return "api/v4/rankList/videos"
+        }
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .home, .focus, .category, .topic, .rank:
+            return .get
+        }
+    }
+
+    var task: Moya.Task {
+        switch self {
+        case .home(let data):
+            return .requestParameters(parameters: ["date": data, "num": 1], encoding: URLEncoding.queryString)
+        case .focus(let pageIndex):
+            return .requestParameters(parameters: ["start": pageIndex], encoding: URLEncoding.queryString)
+        case .category:
+            return .requestPlain
+        case .rank(let rankType):
+            return .requestParameters(parameters: ["strategy": rankType], encoding: URLEncoding.queryString)
+        case .topic(let pageIndex):
+            return .requestParameters(parameters: ["start": pageIndex], encoding: URLEncoding.queryString)
+        }
+    }
+
+    var headers: [String: String]? {
+        // 添加公共请求头-根据需要自行添加
+        return ["Content-Type": "application/json"]
+    }
+}
