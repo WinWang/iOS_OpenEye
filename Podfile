@@ -12,5 +12,4 @@ target 'iOS_OpenEye' do
   pod 'Kingfisher',             '6.3.1'   #图片加载
   pod 'URLNavigator',           '2.5.1'   #路由跳转
   pod 'MJRefresh',              '3.7.9'   #下拉刷新
-
 end

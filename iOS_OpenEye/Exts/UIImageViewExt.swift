@@ -89,4 +89,18 @@ extension UIImageView {
         // 5.开始播放
         self.startAnimating()
     }
+    
+    /// 停止GIF动画并清理资源
+    func stopGifAnimation() {
+        // 停止当前动画
+        self.stopAnimating()
+        // 清理动画资源
+        self.animationImages = nil
+        self.animationDuration = 0
+        self.animationRepeatCount = 0
+        // 如果有初始图片，恢复显示初始图片
+        if let firstImage = self.image, self.animationImages == nil {
+            self.image = firstImage
+        }
+    }
 }

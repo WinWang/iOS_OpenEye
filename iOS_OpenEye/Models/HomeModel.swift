@@ -29,12 +29,43 @@ struct HomeModelIssueList: Codable {
 
 // MARK: - HomeModelIssueListItemList
 
-struct HomeModelIssueListItemList: Codable {
-    let type: String?
-    let data: HomeModelIssueListItemListData?
-    let id: Int?
-    let adIndex: Int?
-    let bannerList: [HomeModelIssueListItemList]?
+struct HomeModelIssueListItemList: BaseItem,Codable {
+    var itemType: Int = HomeItemType.list
+    var type: String?
+    var data: HomeModelIssueListItemListData?
+    var id: Int?
+    var adIndex: Int?
+    var bannerList: [HomeModelIssueListItemList]?
+    
+    enum CodingKeys: String, CodingKey {
+           case itemType
+           case type
+           case data
+           case id
+           case adIndex
+           case bannerList
+       }
+
+       init(from decoder: Decoder) throws {
+           let container = try decoder.container(keyedBy: CodingKeys.self)
+           // 安全解码，如果 itemType 为 null 或缺失，使用默认值
+           self.itemType = try container.decodeIfPresent(Int.self, forKey: .itemType) ?? HomeItemType.list
+           self.type = try container.decodeIfPresent(String.self, forKey: .type)
+           self.data = try container.decodeIfPresent(HomeModelIssueListItemListData.self, forKey: .data)
+           self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+           self.adIndex = try container.decodeIfPresent(Int.self, forKey: .adIndex)
+           self.bannerList = try container.decodeIfPresent([HomeModelIssueListItemList].self, forKey: .bannerList)
+       }
+
+       func encode(to encoder: Encoder) throws {
+           var container = encoder.container(keyedBy: CodingKeys.self)
+           try container.encode(itemType, forKey: .itemType)
+           try container.encodeIfPresent(type, forKey: .type)
+           try container.encodeIfPresent(data, forKey: .data)
+           try container.encodeIfPresent(id, forKey: .id)
+           try container.encodeIfPresent(adIndex, forKey: .adIndex)
+           try container.encodeIfPresent(bannerList, forKey: .bannerList)
+       }
 }
 
 // MARK: - HomeModelIssueListItemListData

@@ -43,6 +43,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
         barButtonItemAppearance.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .highlighted)
     }
-
-    // MARK: UISceneSession Lifecycle
 }

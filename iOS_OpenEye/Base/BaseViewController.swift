@@ -23,10 +23,10 @@ class BaseViewController<T: BaseViewModel & Initializable>: UIViewController {
         initUI()
         // 初始化View
         initView()
-        // 初始化数据
-        initData()
         // 创建观察者
         initObserver()
+        // 初始化数据
+        initData()
     }
 
     /// 初始化View
@@ -50,10 +50,8 @@ class BaseViewController<T: BaseViewModel & Initializable>: UIViewController {
 
     /// 页面状态观测
     private func initStateObserver() {
-        viewModel.$viewState
-            .receive(on: DispatchQueue.main) // 确保在主线程更新 UI
-            .sink { [weak self] viewState in
-                self?.stateLayout.viewState = viewState
-            }.store(in: &cancellables)
+        subscribe(viewModel.$viewState) { [weak self] viewState in
+            self?.stateLayout.viewState = viewState
+        }
     }
 }

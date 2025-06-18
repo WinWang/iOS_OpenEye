@@ -1,11 +1,12 @@
-import UIKit
-
 //
 //  UIViewControllerExt.swift
 //  iOS_OpenEye
 //
 //  Created by WinWang on 2025/5/27.
 //
+
+import SnapKit
+import UIKit
 
 extension UIViewController {
     // 添加标题栏目
@@ -22,6 +23,9 @@ extension UIViewController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        button.snp.makeConstraints {
+            $0.height.equalTo(45)
+        }
         if let action = action { button.addTarget(self, action: action, for: .touchUpInside) }
 
         if #available(iOS 15.0, *) {
@@ -51,6 +55,9 @@ extension UIViewController {
         let button = UIButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.snp.makeConstraints {
+            $0.height.equalTo(45)
+        }
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         if let handler = handler {
             button.addAction(UIAction { action in

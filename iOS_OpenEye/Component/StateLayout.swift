@@ -13,10 +13,6 @@ import Then
 import UIKit
 
 class StateLayout: UIView {
-    // 内容容器
-    private let contentContainer = UIView()
-    // 占位布局
-    private let holdContentContainer = UIView()
     // 占位图片
     private lazy var imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -37,7 +33,16 @@ class StateLayout: UIView {
         $0.layer.cornerRadius = 4
         $0.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
     }
-    
+
+    // 内容容器
+    private lazy var contentContainer = UIView()
+    // 占位布局
+    private lazy var holdContentContainer = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 20
+        $0.alignment = .center
+    }
+
     // Combine 订阅
     private var cancellables = Set<AnyCancellable>()
 
@@ -109,9 +114,9 @@ class StateLayout: UIView {
         addSubview(holdContentContainer)
 
         // 组合View
-        holdContentContainer.addSubview(imageView)
-        holdContentContainer.addSubview(textView)
-        holdContentContainer.addSubview(retryButton)
+        holdContentContainer.addArrangedSubview(imageView)
+        holdContentContainer.addArrangedSubview(textView)
+        holdContentContainer.addArrangedSubview(retryButton)
 
         setupConstraints()
     }
@@ -125,24 +130,19 @@ class StateLayout: UIView {
 
         holdContentContainer.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            $0.center.equalToSuperview() // 居中对齐
         }
         // 占位内容约束 - 初始设置，将在 updateConstraints 中根据对齐方式调整
         imageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(paddingTop)
             $0.width.equalTo(imageWidth)
             $0.height.equalTo(imageHeight)
         }
 
         textView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
 
         retryButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(textView).offset(20)
             $0.height.equalTo(40)
             $0.width.greaterThanOrEqualTo(165)
             $0.bottom.lessThanOrEqualToSuperview().offset(-paddingBottom)
@@ -152,30 +152,28 @@ class StateLayout: UIView {
     // 根据对齐方式更新约束
     override func updateConstraints() {
         super.updateConstraints()
+        // 移除原有约束，重新设置
+        holdContentContainer.snp.removeConstraints()
         // 这里可以根据 contentAlign 调整占位内容的位置
         switch contentAlign {
         case .top:
-            imageView.snp.updateConstraints { make in
+            holdContentContainer.snp.makeConstraints { make in
                 make.top.equalToSuperview().offset(paddingTop)
-            }
-            retryButton.snp.updateConstraints { make in
-                make.bottom.lessThanOrEqualToSuperview().offset(-paddingBottom)
+                make.centerX.equalToSuperview()
+                make.leading.trailing.lessThanOrEqualToSuperview().inset(20)
             }
 
         case .bottom:
-            imageView.snp.updateConstraints { make in
-                make.top.greaterThanOrEqualToSuperview().offset(50)
-            }
-            retryButton.snp.updateConstraints { make in
+            holdContentContainer.snp.makeConstraints { make in
                 make.bottom.equalToSuperview().offset(-paddingBottom)
+                make.centerX.equalToSuperview()
+                make.leading.trailing.lessThanOrEqualToSuperview().inset(20)
             }
 
         case .center:
-            imageView.snp.updateConstraints { make in
-                make.top.equalToSuperview().offset(100)
-            }
-            retryButton.snp.updateConstraints { make in
-                make.bottom.lessThanOrEqualToSuperview().offset(-100)
+            holdContentContainer.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+                make.leading.trailing.lessThanOrEqualToSuperview().inset(20)
             }
 
         default:
@@ -205,6 +203,8 @@ class StateLayout: UIView {
                 make.edges.equalToSuperview()
             }
         } else {
+            imageView.stopGifAnimation()
+            imageView.image = nil
             // 更新图片
             imageView.image = convertImage()
             imageView.snp.updateConstraints { make in
@@ -288,7 +288,9 @@ class StateLayout: UIView {
             imageHeight = 130
             return UIImage(named: "empty")
         case .custom:
-            return nil
+            imageWidth = 260
+            imageHeight = 130
+            return viewState.placeHolder
         default:
             imageWidth = 100
             imageHeight = 100

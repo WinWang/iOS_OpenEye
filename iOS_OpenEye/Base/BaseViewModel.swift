@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import ObjectiveC
+import UIKit
 
 //
 //  BaseViewModel.swift
@@ -14,7 +15,7 @@ protocol Initializable {
     init()
 }
 
-class BaseViewModel: NSObject, Initializable {
+class BaseViewModel: ObservableObject, Initializable {
     // 页面UI布局加载状态
     @Published
     var viewState: ViewState = .setViewState()
@@ -22,18 +23,28 @@ class BaseViewModel: NSObject, Initializable {
     // combine统一订阅销毁管理
     var cancellables = Set<AnyCancellable>()
 
-    override required init() {
-        print("BaseViewModel initialized")
+    required init() {
+        let className = String(describing: type(of: self))
+        logDebug("ViewModel初始化->[\(className)] initialized")
     }
 
     // 封装网络请求方法
+    // -publisher           网络请求发布者
+    // -showStateLoading    是否展示StateLayout的loading
+    // -showStateError      是否展示StateLayout的Error
+    // -success             成功回调
+    // -error               错误回调
     func httpRequest<T: Codable>(
         _ publisher: AnyPublisher<T, APIError>,
+        showStateLoading: Bool = true,
+        showStateError: Bool = true,
         success successHandler: @escaping OneParamUnitAction<T>,
         error errorHandler: OneParamUnitAction<APIError>? = nil
     ) {
         // 更新状态为加载中
-        viewState = ViewState.setViewState()
+        if showStateLoading {
+            viewState = ViewState.setViewState()
+        }
         publisher
             .receive(on: DispatchQueue.main)
             .sink(
@@ -43,14 +54,15 @@ class BaseViewModel: NSObject, Initializable {
                         // 请求成功完成，不需要额外操作
                         break
                     case .failure(let error):
-                        // 请求失败，更新状态为错误
+                        
                         self?.viewState = ViewState(state: .error, tips: error.localizedDescription)
+
                         errorHandler?(error)
                     }
                 },
                 receiveValue: { [weak self] value in
                     // 请求成功，更新状态为成功并传递数据
-                    self?.viewState = ViewState.setSuccess()
+                    self?.showSuccess()
                     successHandler(value)
                 }
             )
@@ -64,5 +76,39 @@ class BaseViewModel: NSObject, Initializable {
         } error: { _ in
             // 默认不处理错误
         }
+    }
+
+    /// 页面状态修改-成功
+    func showSuccess() {
+        viewState = ViewState.setSuccess()
+    }
+
+    /// 错误
+    func showError() {
+        viewState = ViewState.setError()
+    }
+
+    /// 错误
+    func showNetError() {
+        viewState = ViewState.setNetworkError()
+    }
+
+    /// 空态
+    func showEmpty() {
+        viewState = ViewState.setEmpty()
+    }
+
+    /// 加载中
+    func showLoading() {
+        viewState = ViewState.setViewState()
+    }
+
+    /// 自定义布局展示
+    func showCustom(
+        tips: String = AppConstant.EMPTY,
+        buttonTips: String = AppConstant.EMPTY,
+        placeHolder: UIImage?
+    ) {
+        viewState = ViewState.setCustom(tips: tips, buttonTips: buttonTips, placeHolder: placeHolder)
     }
 }

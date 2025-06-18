@@ -58,9 +58,6 @@ class TestViewController: BaseViewController<BaseViewModel> {
         // 添加所有按钮到 stackView
         for item in [collectionViewButton, refreshButton, toastButton, logDebugButton, stateLayoutButton] {
             stackView.addArrangedSubview(item)
-            item.snp.makeConstraints { make in
-                make.height.equalTo(50) // 统一按钮高度
-            }
         }
         // 设置完整的约束
         scrollView.snp.makeConstraints { make in

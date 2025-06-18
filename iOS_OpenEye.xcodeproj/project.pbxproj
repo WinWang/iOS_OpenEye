@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		B0553BF82DE1A57200C70BB5 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B0553BF72DE1A57200C70BB5 /* SwiftPackage */; };
+		B383736D2E0259CC00FCB8FA /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B383736C2E0259CC00FCB8FA /* SwiftPackage */; };
 		B3D53C972DE95AAE00231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53C962DE95AAE00231A82 /* SwiftPackage */; };
 		B3D53CE32DE95B7500231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53CE22DE95B7500231A82 /* SwiftPackage */; };
 		B3D53CE62DE9774100231A82 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D53CE52DE9774100231A82 /* SwiftPackage */; };
 		B3E503A52DE1A8DC00E535DE /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3E503A42DE1A8DC00E535DE /* SwiftPackage */; };
+		B3FFCB4A2E016E8B00B86B21 /* SwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B3FFCB492E016E8B00B86B21 /* SwiftPackage */; };
 		F3CBB45E089E44A53AB6993B /* libPods-iOS_OpenEye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E317E950FD36FE2A7A3200D /* libPods-iOS_OpenEye.a */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +42,9 @@
 				B3D53C972DE95AAE00231A82 /* SwiftPackage in Frameworks */,
 				B3D53CE62DE9774100231A82 /* SwiftPackage in Frameworks */,
 				F3CBB45E089E44A53AB6993B /* libPods-iOS_OpenEye.a in Frameworks */,
+				B383736D2E0259CC00FCB8FA /* SwiftPackage in Frameworks */,
 				B0553BF82DE1A57200C70BB5 /* SwiftPackage in Frameworks */,
+				B3FFCB4A2E016E8B00B86B21 /* SwiftPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +136,7 @@
 			mainGroup = B332354D2DDDEAA50040E8D3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				B3D53CE42DE9774100231A82 /* XCLocalSwiftPackageReference "SwiftPackage" */,
+				B383736B2E0259CC00FCB8FA /* XCLocalSwiftPackageReference "SwiftPackage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B33235572DDDEAA50040E8D3 /* Products */;
@@ -418,7 +422,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		B3D53CE42DE9774100231A82 /* XCLocalSwiftPackageReference "SwiftPackage" */ = {
+		B383736B2E0259CC00FCB8FA /* XCLocalSwiftPackageReference "SwiftPackage" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = SwiftPackage;
 		};
@@ -426,6 +430,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		B0553BF72DE1A57200C70BB5 /* SwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftPackage;
+		};
+		B383736C2E0259CC00FCB8FA /* SwiftPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftPackage;
 		};
@@ -442,6 +450,10 @@
 			productName = SwiftPackage;
 		};
 		B3E503A42DE1A8DC00E535DE /* SwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftPackage;
+		};
+		B3FFCB492E016E8B00B86B21 /* SwiftPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftPackage;
 		};

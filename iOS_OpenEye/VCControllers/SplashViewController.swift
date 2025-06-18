@@ -1,6 +1,7 @@
 //
 //  SplashViewController.swift
 //  iOS_OpenEye
+//  首页Splash闪屏页面
 //
 //  Created by WinWang on 2025/6/12.
 //
@@ -20,7 +21,7 @@ class SplashViewController: BaseViewController<BaseViewModel> {
         view.addSubview(landingImage)
         landingImage.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.width.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
         }
     }
 
@@ -28,7 +29,6 @@ class SplashViewController: BaseViewController<BaseViewModel> {
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             DispatchQueue.main.async {
                 Router.shared.replaceMainController()
-                logDebug("跳转首页")
             }
         }
     }
