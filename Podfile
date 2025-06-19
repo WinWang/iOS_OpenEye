@@ -12,4 +12,5 @@ target 'iOS_OpenEye' do
   pod 'Kingfisher',             '6.3.1'   #图片加载
   pod 'URLNavigator',           '2.5.1'   #路由跳转
   pod 'MJRefresh',              '3.7.9'   #下拉刷新
+  pod 'FSPagerView',           :git => 'https://github.com/WinWang/FSPagerView.git', :branch => 'master' #Banner组件  pod导入修改最低兼容版本12
 end

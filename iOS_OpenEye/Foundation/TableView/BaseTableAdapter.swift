@@ -7,22 +7,6 @@
 
 import UIKit
 
-// 基础TableView适配器协议
-public protocol BaseTableViewAdapterDelegate: AnyObject {
-    func onItemClick(indexPath: IndexPath, itemData: BaseItem)
-    func onItemLongPress(indexPath: IndexPath, itemData: BaseItem)
-}
-
-// 基础数据模型协议
-public protocol BaseItem {
-    var itemType: Int { get set}
-}
-
-// 基础Cell绑定协议
-protocol CellBindable {
-    func bindData(_ data: BaseItem)
-}
-
 // 基础TableViewCell
 class BaseTableViewCell<T: BaseItem>: UITableViewCell, CellBindable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -36,11 +20,11 @@ class BaseTableViewCell<T: BaseItem>: UITableViewCell, CellBindable {
     
     func setupUI() {}
     
-    func bind(_ data: T) {}
+    func bind(_ data: T , index :Int) {}
     
-    func bindData(_ data: BaseItem) {
+    func bindData(_ data: BaseItem ,index:Int) {
         if let typedData = data as? T {
-            bind(typedData)
+            bind(typedData,index:index)
         }
     }
 }
@@ -58,20 +42,24 @@ class BaseTableViewAdapter: NSObject {
     private var footerHeightDict: [Int: CGFloat] = [:]
     // Cell类型字典
     private var cellTypeDict: [Int: UITableViewCell.Type] = [:]
-    
+    // 单击事件
     var onItemClick: ((IndexPath, BaseItem) -> Void)?
+    // 长按事件
     var onItemLongPress: ((IndexPath, BaseItem) -> Void)?
     
+    //设置新数据实体
     func setNewData(_ data: [BaseItem]) {
         self.dataList = data
         self.tableView?.reloadData()
     }
     
+    //添加数据实体
     func addData(_ data: [BaseItem]) {
         self.dataList.append(contentsOf: data)
         self.tableView?.reloadData()
     }
     
+    //注册Cell
     func register<T: BaseTableViewCell<U>, U: BaseItem>(cellType: T.Type, forItemType itemType: Int) {
         cellTypeDict[itemType] = cellType
     }
@@ -115,7 +103,7 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
         if let bindableCell = cell as? CellBindable {
-            bindableCell.bindData(item)
+            bindableCell.bindData(item,index: indexPath.row)
         }
         
         return cell
@@ -166,11 +154,11 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
 //class BannerCell: BaseTableViewCell<BannerItem> {
 //    private let titleLabel = UILabel()
 //    private let bannerImageView = UIImageView()
-//    
+//
 //    override func setupUI() {
 //        // 设置UI布局
 //    }
-//    
+//
 //    override func bind(_ data: BannerItem) {
 //        titleLabel.text = data.title
 //        // 设置图片
@@ -181,11 +169,11 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
 //class ListItemCell: BaseTableViewCell<ListItem> {
 //    private let titleLabel = UILabel()
 //    private let subtitleLabel = UILabel()
-//    
+//
 //    override func setupUI() {
 //        // 设置UI布局
 //    }
-//    
+//
 //    override func bind(_ data: ListItem) {
 //        titleLabel.text = data.title
 //        subtitleLabel.text = data.subtitle
@@ -200,24 +188,24 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
 //        table.dataSource = adapter
 //        return table
 //    }()
-//    
+//
 //    private lazy var adapter: BaseTableViewAdapter = {
 //        let adapter = BaseTableViewAdapter()
 //        adapter.delegate = self
 //        return adapter
 //    }()
-//    
+//
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //        setupTableView()
 //    }
-//    
+//
 //    private func setupTableView() {
 //        adapter.register(cellType: BannerCell.self, forItemType: ItemType.banner)
 //        adapter.register(cellType: ListItemCell.self, forItemType: ItemType.list)
-//        
+//
 //        adapter.setHeaderHeight(50, forSection: 0)
-//        
+//
 //        let mixedData: [BaseItem] = [
 //            BannerItem(imageUrl: "banner1.jpg", title: "Banner 1"),
 //            ListItem(title: "标题1", subtitle: "副标题1"),
@@ -225,9 +213,9 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
 //            BannerItem(imageUrl: "banner2.jpg", title: "Banner 2"),
 //            ListItem(title: "标题3", subtitle: "副标题3")
 //        ]
-//        
+//
 //        adapter.setNewData(mixedData)
-//        
+//
 //        // 统一的点击事件处理
 //        adapter.onItemClick = { _, item in
 //            switch item.itemType {
@@ -250,9 +238,8 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
 //    func onItemClick(indexPath: IndexPath, itemData: BaseItem) {
 //        // 处理点击事件
 //    }
-//    
+//
 //    func onItemLongPress(indexPath: IndexPath, itemData: BaseItem) {
 //        // 处理长按事件
 //    }
 //}
-

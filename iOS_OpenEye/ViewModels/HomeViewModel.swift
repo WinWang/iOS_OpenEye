@@ -24,26 +24,17 @@ class HomeViewModel: BaseViewModel {
         ) { [weak self] result in
             let items = result.issueList?.first?.itemList ?? []
             var list = items.filter { $0.type == "video" }
-            list.map{
-                var item = $0
-                item.itemType = HomeItemType.list
-                return item
-            }
             if self?.date == AppConstant.EMPTY {
-//                var bannerList: [HomeModelIssueListItemList] = []
-//                var bannerData = HomeModelIssueListItemList( itemType:HomeItemType.banner ,type: nil,
-//                                                            data: nil,
-//                                                            id: nil,
-//                                                            adIndex: nil,
-//                                                            bannerList: nil)
-//                let tempBannerList = items.filter { $0.type == "banner2" }
-//                bannerList.append(contentsOf: tempBannerList)
-//                if !bannerList.isEmpty {
-//                    bannerData.bannerList = bannerList
-//                    bannerData.type = "banner"
-//                    bannerData.itemType = HomeItemType.banner
-//                    list.insert(bannerData, at: 0)
-//                }
+                var bannerList: [HomeModelIssueListItemList] = []
+                var bannerData = HomeModelIssueListItemList( itemType:HomeItemType.banner,type: nil,data: nil,id: nil,adIndex: nil,bannerList: nil)
+                let tempBannerList = items.filter { $0.type == "banner2" }
+                bannerList.append(contentsOf: tempBannerList)
+                if !bannerList.isEmpty {
+                    bannerData.bannerList = bannerList
+                    bannerData.type = "banner"
+                    bannerData.itemType = HomeItemType.banner
+                    list.insert(bannerData, at: 0)
+                }
             }
             if self?.date == AppConstant.EMPTY {
                 self?.homeList = list

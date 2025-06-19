@@ -24,6 +24,7 @@ extension UIColor {
     static let color_888888 = UIColor(hex: "#888888")
     static let color_999999 = UIColor(hex: "#999999")
     static let color_FFFFFF = UIColor(hex: "#FFFFFF")
+    static let color_F6F6F6 = UIColor(hex: "#F6F6F6")
     static let color_F8F8F8 = UIColor(hex: "#F8F8F8")
     
     // 如果需要使用十六进制颜色，可以添加便利构造器

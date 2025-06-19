@@ -46,6 +46,20 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
            case bannerList
        }
 
+    init(itemType: Int = HomeItemType.list,
+         type: String? = nil,
+         data: HomeModelIssueListItemListData? = nil,
+         id: Int? = nil,
+         adIndex: Int? = nil,
+         bannerList: [HomeModelIssueListItemList]? = nil) {
+        self.itemType = itemType
+        self.type = type
+        self.data = data
+        self.id = id
+        self.adIndex = adIndex
+        self.bannerList = bannerList
+    }
+    
        init(from decoder: Decoder) throws {
            let container = try decoder.container(keyedBy: CodingKeys.self)
            // 安全解码，如果 itemType 为 null 或缺失，使用默认值
@@ -56,6 +70,8 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
            self.adIndex = try container.decodeIfPresent(Int.self, forKey: .adIndex)
            self.bannerList = try container.decodeIfPresent([HomeModelIssueListItemList].self, forKey: .bannerList)
        }
+    
+    
 
        func encode(to encoder: Encoder) throws {
            var container = encoder.container(keyedBy: CodingKeys.self)

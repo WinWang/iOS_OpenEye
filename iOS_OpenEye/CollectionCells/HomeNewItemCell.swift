@@ -13,6 +13,7 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
     
     // 封面图片
     private lazy var coverImage = UIImageView()
+    
     // cardView
     private lazy var cardView = UIView().then {
         $0.backgroundColor = .white
@@ -20,6 +21,7 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
 
     // 头像图片
     private lazy var avator = UIImageView()
+    
     // 标题
     private lazy var titleView = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 15)
@@ -81,15 +83,14 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
         }
     }
     
-    override func bind(_ item: HomeModelIssueListItemList?) {
+    override func bind(_ item: HomeModelIssueListItemList?,index:Int) {
         let imageUrl = item?.data?.cover?.feed?.httpsUrlString ?? AppConstant.EMPTY
         let avatorUrl = item?.data?.author?.icon.httpsUrlString ?? AppConstant.EMPTY
-        let title = item?.data?.author?.name ?? AppConstant.EMPTY
         let desc = item?.data?.author?.description ?? AppConstant.EMPTY
+        let title = item?.data?.author?.name ?? AppConstant.EMPTY
         coverImage.loadRoundedImage(imageUrl)
         avator.loadRoundedImage(avatorUrl, radius: 25)
         titleView.text = title
         descView.text = desc
     }
-    
 }

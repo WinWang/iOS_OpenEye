@@ -51,50 +51,57 @@ class StateLayout: UIView {
     private var imageHeight: CGFloat = 130
 
     // MARK: - 公共属性
-
+    // 页面状态
     var viewState: ViewState = .setViewState() {
         didSet {
             updateUI()
         }
     }
 
-    // 重试按钮
-    var retryCallback: NoParamUnitAction?
+    // 是否展示重试按钮
     var showRetryButton: Bool = true {
         didSet {
             updateUI()
         }
     }
 
+    // 是否展示空态重试按钮
     var showEmptyRetryButton: Bool = true {
         didSet {
             updateUI()
         }
     }
 
-    var paddingTop: CGFloat = 90 {
+    // 距离顶部距离   - 在top情况下生效
+    var paddingTop: CGFloat = 0 {
         didSet {
             updateConstraints()
         }
     }
 
+    // 距离顶部距离   - 在bottom情况下生效
     var paddingBottom: CGFloat = 0 {
         didSet {
             updateConstraints()
         }
     }
 
+    // 对齐方式 -支持 center  top   bottom
     var contentAlign: Alignment = .center {
         didSet {
             updateConstraints()
         }
     }
-
+    
+    //是否内容和StateLayout是否一起展示
     var showTogether: Bool = false {
         didSet {
             updateUI()
         }
     }
+    
+    // 重试按钮回调
+    var retryCallback: NoParamUnitAction?
 
     // MARK: - 初始化
 
