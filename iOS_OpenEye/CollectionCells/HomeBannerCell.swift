@@ -60,6 +60,7 @@ class HomeBannerCell :BaseTableViewCell<HomeModelIssueListItemList>, FSPagerView
     override func bind(_ item: HomeModelIssueListItemList?,index:Int) {
         pageController.numberOfPages = imageUrls.count
         bannerView.reloadData()
+        
     }
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {

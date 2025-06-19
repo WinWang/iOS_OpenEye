@@ -20,7 +20,7 @@ class BaseTableViewCell<T: BaseItem>: UITableViewCell, CellBindable {
     
     func setupUI() {}
     
-    func bind(_ data: T , index :Int) {}
+    func bind(_ data: T , index :Int){}
     
     func bindData(_ data: BaseItem ,index:Int) {
         if let typedData = data as? T {
@@ -30,10 +30,10 @@ class BaseTableViewCell<T: BaseItem>: UITableViewCell, CellBindable {
 }
 
 // 基础TableView适配器
-class BaseTableViewAdapter: NSObject {
+class BaseTableViewAdapter<T:BaseItem>: NSObject,UITableViewDataSource, UITableViewDelegate {
     private(set) var tableView:UITableView?
     // 数据源
-    private(set) var dataList: [BaseItem] = []
+    private(set) var dataList: [T] = []
     // 代理
     weak var delegate: BaseTableViewAdapterDelegate?
     // Header高度字典
@@ -43,24 +43,24 @@ class BaseTableViewAdapter: NSObject {
     // Cell类型字典
     private var cellTypeDict: [Int: UITableViewCell.Type] = [:]
     // 单击事件
-    var onItemClick: ((IndexPath, BaseItem) -> Void)?
+    var onItemClick: ((IndexPath, T) -> Void)?
     // 长按事件
-    var onItemLongPress: ((IndexPath, BaseItem) -> Void)?
+    var onItemLongPress: ((IndexPath, T) -> Void)?
     
     //设置新数据实体
-    func setNewData(_ data: [BaseItem]) {
+    func setNewData(_ data: [T]) {
         self.dataList = data
         self.tableView?.reloadData()
     }
     
     //添加数据实体
-    func addData(_ data: [BaseItem]) {
+    func addData(_ data: [T]) {
         self.dataList.append(contentsOf: data)
         self.tableView?.reloadData()
     }
     
     //注册Cell
-    func register<T: BaseTableViewCell<U>, U: BaseItem>(cellType: T.Type, forItemType itemType: Int) {
+    func register<Cell: BaseTableViewCell<U>, U: BaseItem>(cellType: Cell.Type, forItemType itemType: Int) {
         cellTypeDict[itemType] = cellType
     }
     
@@ -80,13 +80,13 @@ class BaseTableViewAdapter: NSObject {
         footerHeightDict[section] = height
     }
     
-    func getItem(at indexPath: IndexPath) -> BaseItem? {
+    func getItem(at indexPath: IndexPath) -> T? {
         guard indexPath.row < dataList.count else { return nil }
         return dataList[indexPath.row]
     }
-}
 
-extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
+    
+    /**********************************************************************DataSource和Delegate实现类**START***************************************************************************************************************/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataList.count
     }
@@ -128,7 +128,53 @@ extension BaseTableViewAdapter: UITableViewDataSource, UITableViewDelegate {
         delegate?.onItemLongPress(indexPath: indexPath, itemData: item)
         onItemLongPress?(indexPath, item)
     }
+    /**********************************************************************DataSource和Delegate实现类***END**************************************************************************************************************/
+    
 }
+
+//extension BaseTableViewAdapter : UITableViewDataSource, UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return dataList.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let item = dataList[indexPath.row]
+//        let itemType = item.itemType
+//        
+//        guard let cellType = cellTypeDict[itemType] else {
+//            return UITableViewCell()
+//        }
+//        
+//        let identifier = String(describing: cellType)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+//        
+//        if let bindableCell = cell as? CellBindable {
+//            bindableCell.bindData(item,index: indexPath.row)
+//        }
+//        
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return headerHeightDict[section] ?? 0
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return footerHeightDict[section] ?? 0
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let item = dataList[indexPath.row]
+//        delegate?.onItemClick(indexPath: indexPath, itemData: item)
+//        onItemClick?(indexPath, item)
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didLongPressRowAt indexPath: IndexPath) {
+//        let item = dataList[indexPath.row]
+//        delegate?.onItemLongPress(indexPath: indexPath, itemData: item)
+//        onItemLongPress?(indexPath, item)
+//    }
+//}
 
 // 定义ItemType常量
 //enum ItemType {

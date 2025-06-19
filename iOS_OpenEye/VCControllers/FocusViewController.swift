@@ -19,7 +19,7 @@ class FocusViewController :BaseViewController<FocusVewModel>,JXSegmentedListCont
         $0.dataSource = focusAdapter
     }
     //TableAdapter
-    private lazy var focusAdapter = BaseTableViewAdapter()
+    private lazy var focusAdapter = BaseTableViewAdapter<BaseStringItem>()
 
     //JXSegmentedListContainerViewListDelegate 代理返回数据类型
     func listView() -> UIView {

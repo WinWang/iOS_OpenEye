@@ -26,7 +26,7 @@ class HomeViewController: BaseViewController<HomeViewModel>{
     }
     
     //TableAdapter
-    private lazy var homeAdapter = BaseTableViewAdapter()
+    private lazy var homeAdapter = BaseTableViewAdapter<HomeModelIssueListItemList>()
 
     override func initView() {
         addTitleBar(titleBar)
@@ -71,13 +71,12 @@ class HomeViewController: BaseViewController<HomeViewModel>{
         homeAdapter.setHeaderHeight(50, forSection: 0)
          // 统一的点击事件处理
          homeAdapter.onItemClick = { _, item in
-             _ =  item as? HomeModelIssueListItemList
              switch item.itemType {
              case HomeItemType.banner:
-                 
+                 logDebug("点击了Banner->")
                  break
              case HomeItemType.list:
-                 
+                 logDebug("点击了HomeItem->")
                  break
              default:
                  break

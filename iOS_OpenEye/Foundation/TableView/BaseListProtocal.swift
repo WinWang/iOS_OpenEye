@@ -22,3 +22,12 @@ public protocol BaseItem {
 protocol CellBindable {
     func bindData(_ data: BaseItem,index:Int)
 }
+
+/**
+ *基础String BaseItem*
+ */
+class BaseStringItem : BaseItem{
+    var itemType: Int = 0
+    
+    var label :String = "0"
+}
