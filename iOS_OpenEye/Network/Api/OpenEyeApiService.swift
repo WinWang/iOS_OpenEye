@@ -19,8 +19,23 @@ class OpenEyeApiService: APIServiceType {
         return requestPublisher(.home(data: data))
     }
     
+    //获取关注列表
+    func getFocusList(pageIndex:Int)->AnyPublisher<FocusModel,APIError>{
+        return requestPublisher(.focus(pageIndex: pageIndex))
+    }
+    
     //获取分类数据
     func getCategoryList()->AnyPublisher<CategoryModel,APIError>{
         return requestPublisher(.category)
+    }
+    
+    //获取topic列表
+    func getTopicList(pageIndex:Int)->AnyPublisher<TopicModel,APIError>{
+        return requestPublisher(.topic(pageIndex: pageIndex))
+    }
+    
+    //获取排行榜列表
+    func getRankList(rankType:String) ->AnyPublisher<HomeModel,APIError>{
+        return requestPublisher(.rank(rankType: rankType))
     }
 }

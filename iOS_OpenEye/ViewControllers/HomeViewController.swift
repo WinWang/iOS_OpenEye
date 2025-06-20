@@ -68,7 +68,6 @@ class HomeViewController: BaseViewController<HomeViewModel>{
     private func initTableView(){
         homeAdapter.register(cellType: HomeBannerCell.self, forItemType: HomeItemType.banner)
         homeAdapter.register(cellType: HomeNewItemCell.self, forItemType: HomeItemType.list)
-        homeAdapter.setHeaderHeight(50, forSection: 0)
          // 统一的点击事件处理
          homeAdapter.onItemClick = { _, item in
              switch item.itemType {

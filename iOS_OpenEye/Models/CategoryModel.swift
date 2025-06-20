@@ -17,7 +17,7 @@ struct CategoryModel: Codable {
 
 struct CategoryModelChild: BaseItem, Codable {
     // 本地使用的类型标识，不参与解码
-    var itemType: Int = 0
+    var itemType: Int? = 0
     let id: Int?
     let name: String?
     let alias: String?

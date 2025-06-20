@@ -100,7 +100,7 @@ extension BaseCollectionViewAdapter: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = dataList[indexPath.item]
-        let itemType = item.itemType
+        let itemType = item.itemType ?? 0
         
         guard let cellType = cellTypeDict[itemType] else {
             return UICollectionViewCell()

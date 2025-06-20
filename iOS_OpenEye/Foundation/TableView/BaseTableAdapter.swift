@@ -93,7 +93,7 @@ class BaseTableViewAdapter<T:BaseItem>: NSObject,UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = dataList[indexPath.row]
-        let itemType = item.itemType
+        let itemType = item.itemType ?? 0
         
         guard let cellType = cellTypeDict[itemType] else {
             return UITableViewCell()

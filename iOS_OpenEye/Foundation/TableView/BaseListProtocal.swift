@@ -15,7 +15,7 @@ public protocol BaseTableViewAdapterDelegate: AnyObject {
 
 // 基础数据模型协议
 public protocol BaseItem {
-    var itemType: Int { get set}
+    var itemType: Int? { get set}
 }
 
 // 基础Cell绑定协议
@@ -27,7 +27,7 @@ protocol CellBindable {
  *基础String BaseItem*
  */
 class BaseStringItem : BaseItem{
-    var itemType: Int = 0
+    var itemType: Int? = 0
     
     var label :String = "0"
 }

@@ -10,7 +10,8 @@ import Foundation
 // MARK: - HomeModel
 
 struct HomeModel: Codable {
-    let issueList, itemList: [HomeModelIssueList]?
+    let issueList :[HomeModelIssueList]?
+    let itemList: [HomeModelIssueListItemList]?
     let nextPageUrl: String?
     let nextPublishTime: Int?
     let newestIssueType: String?
@@ -30,7 +31,7 @@ struct HomeModelIssueList: Codable {
 // MARK: - HomeModelIssueListItemList
 
 struct HomeModelIssueListItemList: BaseItem,Codable {
-    var itemType: Int = HomeItemType.list
+    var itemType: Int? = HomeItemType.list
     var type: String?
     var data: HomeModelIssueListItemListData?
     var id: Int?
@@ -38,7 +39,6 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
     var bannerList: [HomeModelIssueListItemList]?
     
     enum CodingKeys: String, CodingKey {
-           case itemType
            case type
            case data
            case id
@@ -59,29 +59,29 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
         self.adIndex = adIndex
         self.bannerList = bannerList
     }
-    
-       init(from decoder: Decoder) throws {
-           let container = try decoder.container(keyedBy: CodingKeys.self)
-           // 安全解码，如果 itemType 为 null 或缺失，使用默认值
-           self.itemType = try container.decodeIfPresent(Int.self, forKey: .itemType) ?? HomeItemType.list
-           self.type = try container.decodeIfPresent(String.self, forKey: .type)
-           self.data = try container.decodeIfPresent(HomeModelIssueListItemListData.self, forKey: .data)
-           self.id = try container.decodeIfPresent(Int.self, forKey: .id)
-           self.adIndex = try container.decodeIfPresent(Int.self, forKey: .adIndex)
-           self.bannerList = try container.decodeIfPresent([HomeModelIssueListItemList].self, forKey: .bannerList)
-       }
-    
-    
-
-       func encode(to encoder: Encoder) throws {
-           var container = encoder.container(keyedBy: CodingKeys.self)
-           try container.encode(itemType, forKey: .itemType)
-           try container.encodeIfPresent(type, forKey: .type)
-           try container.encodeIfPresent(data, forKey: .data)
-           try container.encodeIfPresent(id, forKey: .id)
-           try container.encodeIfPresent(adIndex, forKey: .adIndex)
-           try container.encodeIfPresent(bannerList, forKey: .bannerList)
-       }
+//    
+//       init(from decoder: Decoder) throws {
+//           let container = try decoder.container(keyedBy: CodingKeys.self)
+//           // 安全解码，如果 itemType 为 null 或缺失，使用默认值
+//           self.itemType = try container.decodeIfPresent(Int.self, forKey: .itemType) ?? HomeItemType.list
+//           self.type = try container.decodeIfPresent(String.self, forKey: .type)
+//           self.data = try container.decodeIfPresent(HomeModelIssueListItemListData.self, forKey: .data)
+//           self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+//           self.adIndex = try container.decodeIfPresent(Int.self, forKey: .adIndex)
+//           self.bannerList = try container.decodeIfPresent([HomeModelIssueListItemList].self, forKey: .bannerList)
+//       }
+//    
+//    
+//
+//       func encode(to encoder: Encoder) throws {
+//           var container = encoder.container(keyedBy: CodingKeys.self)
+//           try container.encode(itemType, forKey: .itemType)
+//           try container.encodeIfPresent(type, forKey: .type)
+//           try container.encodeIfPresent(data, forKey: .data)
+//           try container.encodeIfPresent(id, forKey: .id)
+//           try container.encodeIfPresent(adIndex, forKey: .adIndex)
+//           try container.encodeIfPresent(bannerList, forKey: .bannerList)
+//       }
 }
 
 // MARK: - HomeModelIssueListItemListData
@@ -132,57 +132,4 @@ struct RootObjectShield: Codable {
 struct CoverModel: Codable {
     let feed, detail, blurred, homepage: String?
     let sharing: JSONAny?
-}
-
-// MARK: - 处理任意类型
-
-struct JSONAny: Codable {
-    let value: Any
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        if let value = try? container.decode(String.self) {
-            self.value = value
-        } else if let value = try? container.decode(Int.self) {
-            self.value = value
-        } else if let value = try? container.decode(Double.self) {
-            self.value = value
-        } else if let value = try? container.decode(Bool.self) {
-            self.value = value
-        } else if let value = try? container.decode([JSONAny].self) {
-            self.value = value.map { $0.value }
-        } else if let value = try? container.decode([String: JSONAny].self) {
-            self.value = value.mapValues { $0.value }
-        } else {
-            throw DecodingError.typeMismatch(JSONAny.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Failed to decode JSONAny"))
-        }
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-
-        switch value {
-        case let value as String:
-            try container.encode(value)
-        case let value as Int:
-            try container.encode(value)
-        case let value as Double:
-            try container.encode(value)
-        case let value as Bool:
-            try container.encode(value)
-        case let value as [Any]:
-            let codableArray = value.map { JSONAny(value: $0) }
-            try container.encode(codableArray)
-        case let value as [String: Any]:
-            let codableDict = value.mapValues { JSONAny(value: $0) }
-            try container.encode(codableDict)
-        default:
-            throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Invalid value for JSONAny"))
-        }
-    }
-
-    init(value: Any) {
-        self.value = value
-    }
 }

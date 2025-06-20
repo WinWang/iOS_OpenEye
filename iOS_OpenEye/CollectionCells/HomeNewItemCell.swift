@@ -36,7 +36,6 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
         $0.numberOfLines = 1
     }
     
-    
     override func setupUI() {
         cardView.addSubview(coverImage)
         cardView.addSubview(avator)
