@@ -20,6 +20,7 @@ let package = Package(
         .package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.8.5"),         //log日志打印记录
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),                            //Then语法糖
         .package(url: "https://github.com/pujiaxin33/JXSegmentedView.git", from: "1.4.1"),              //TabLayout组件
+        .package(url: "https://github.com/BrikerMan/BMPlayer.git", from: "1.3.2"),                      //视频播放器
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -34,6 +35,7 @@ let package = Package(
                 .product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
                 .product(name: "Then", package: "Then"),
                 .product(name: "JXSegmentedView", package: "JXSegmentedView"),
+                .product(name: "BMPlayer", package: "BMPlayer"),
             ],
         ),
     ]

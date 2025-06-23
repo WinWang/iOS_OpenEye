@@ -23,8 +23,12 @@ final class Router {
         }
         // 详情页
         navigator.register(RoutePath.detailPattern) { _, values, _ in
-            guard let id = values["id"] as? String else { return nil }
-            return DetailViewController(id: id)
+            // 如果Int类型转换失败，尝试从String转换
+            if let idString = values["id"] as? String,
+                let id = Int(idString) {
+                return VideoDetailViewController(id: id)
+            }
+            return nil
         }
         // 测试页面
         navigator.register(RoutePath.testPattern) { _, _, _ in

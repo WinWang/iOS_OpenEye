@@ -75,7 +75,7 @@ class HomeViewController: BaseViewController<HomeViewModel>{
                  logDebug("点击了Banner->")
                  break
              case HomeItemType.list:
-                 logDebug("点击了HomeItem->")
+                 Router.shared.push(.detail(id: item.data?.id ?? 0))
                  break
              default:
                  break

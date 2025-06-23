@@ -19,7 +19,6 @@ class HotRankViewModel : BaseViewModel{
         ) { [weak self] result in
             let items = result.itemList ?? []
             self?.rankList = items
-            logDebug("列表长度\(items.count)")
         }
     }
 }

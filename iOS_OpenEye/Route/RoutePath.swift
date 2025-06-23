@@ -22,7 +22,7 @@ enum RoutePath {
     case main
     
     // 详情页面
-    case detail(id: String)
+    case detail(id: Int)
     
     // 测试页面
     case test
@@ -43,7 +43,7 @@ enum RoutePath {
         case .main:
             return Self.mainPath
         case .detail(let id):
-            return Self.detailPath + id
+            return Self.detailPath + "\(id)"
         case .test:
             return Self.testPath
         case .collectionView:

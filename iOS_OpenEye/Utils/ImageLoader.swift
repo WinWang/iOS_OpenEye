@@ -8,6 +8,40 @@ import UIKit
 //  Created by WinWang on 2025/5/29.
 //
 
+// 初始化配置示例
+class ImageLoaderConfig {
+    static func setupDefaultConfig() {
+        // 设置默认占位图
+        ImageLoader.Config.defaultPlaceholder = UIImage(named: "back_placeholder")
+        
+        // 设置默认加载选项
+        ImageLoader.Config.defaultOptions = [
+            .transition(.fade(0.3)),  // 淡入淡出动画
+            .cacheOriginalImage,      // 缓存原始图片
+            .backgroundDecode,        // 后台解码
+            .alsoPrefetchToMemory,    // 预加载到内存
+            .diskCacheExpiration(.days(7)), // 磁盘缓存7天
+            .memoryCacheExpiration(.days(1)), // 内存缓存24小时
+            .retryStrategy(DelayRetryStrategy(maxRetryCount: 3, retryInterval: .seconds(1))) // 重试策略
+        ]
+        
+        // 设置加载指示器类型
+        ImageLoader.Config.defaultIndicatorType = .activity
+        
+        // 设置重试次数
+        ImageLoader.Config.defaultRetryCount = 3
+        
+        // 配置全局缓存
+        let cache = ImageCache.default
+        cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024  // 300MB内存缓存
+        cache.diskStorage.config.sizeLimit = 1000 * 1024 * 1024        // 1GB磁盘缓存
+        
+        // 配置下载器
+        let downloader = ImageDownloader.default
+        downloader.downloadTimeout = 15.0  // 15秒超时
+    }
+}
+
 enum ImageLoader {
     // 全局配置
     enum Config {

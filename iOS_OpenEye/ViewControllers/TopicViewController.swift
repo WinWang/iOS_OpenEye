@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import JXSegmentedView
+import MJRefresh
 
 class TopicViewController :BaseViewController<TopicViewModel>,JXSegmentedListContainerViewListDelegate{
     
@@ -24,6 +25,7 @@ class TopicViewController :BaseViewController<TopicViewModel>,JXSegmentedListCon
         return view
     }
     
+    //初始化UI
     override func initView() {
         view.addSubview(stateLayout)
         stateLayout.snp.makeConstraints {
@@ -33,24 +35,42 @@ class TopicViewController :BaseViewController<TopicViewModel>,JXSegmentedListCon
             $0.edges.equalToSuperview()
         }
         stateLayout.retryCallback = { [weak self] in
+            self?.viewModel.pageIndex = 0
             self?.viewModel.getTopicList()
         }
         initTableView()
     }
     
+    //初始化数据加载
     override func initData() {
         viewModel.getTopicList()
     }
     
+    //初始化观察者
     override func initObserver() {
         super.initObserver()
         subscribe(viewModel.$topicList){[weak self] topicList in
-            self?.adapter.setNewData(topicList)
+            if self?.viewModel.pageIndex==0{
+                self?.adapter.setNewData(topicList)
+            }else{
+                self?.adapter.addData(topicList)
+            }
+            self?.tableView.mj_header?.endRefreshing()
+            self?.tableView.mj_footer?.endRefreshing()
         }
     }
     
+    // 初始化TableView
     private func initTableView(){
         adapter.register(cellType: TopicItemCell.self, forItemType: 0)
         adapter.bindTableView(tableView)
+        tableView.mj_header = MJRefreshNormalHeader(){ [weak self] in
+            self?.viewModel.pageIndex = 0
+            self?.viewModel.getTopicList()
+        }
+        tableView.mj_footer = MJRefreshAutoNormalFooter(){[weak self] in
+            self?.viewModel.pageIndex += self?.adapter.dataList.count ?? 0
+            self?.viewModel.getTopicList()
+        }
     }
 }

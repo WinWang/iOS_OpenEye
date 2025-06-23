@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class CustomCornerLabel: UILabel {
     // 存储四个角的圆角半径
     var cornerRadii = CornerRadii()
@@ -31,3 +32,20 @@ class CustomCornerLabel: UILabel {
         layer.mask = maskLayer
     }
 }
+
+// 使用示例:
+/*
+ // 创建CustomCornerLabel实例
+ let cornerLabel = CustomCornerLabel()
+ cornerLabel.frame = CGRect(x: 20, y: 100, width: 200, height: 40)
+ cornerLabel.text = "圆角标签示例"
+ cornerLabel.textAlignment = .center
+ cornerLabel.backgroundColor = .orange
+ 
+ // 设置不同角的圆角半径
+ cornerLabel.cornerRadii.topLeft = 10
+ cornerLabel.cornerRadii.bottomRight = 10
+ 
+ // 添加到视图
+ view.addSubview(cornerLabel)
+ */

@@ -89,7 +89,7 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
 struct HomeModelIssueListItemListData: Codable {
     let dataType: String?
     let id: Int?
-    let title, description, image, actionUrl: String?
+    let title, description, image, actionUrl , category: String?
     let shade, autoPlay: Bool?
     let cover: CoverModel?
     let playUrl: String?

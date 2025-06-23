@@ -75,7 +75,9 @@ extension UIImageView {
             images.append(image)
                 
             // 3.2.取出持续的时间
-            guard let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil) as? NSDictionary else { continue }
+            guard let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil) as? [CFString: Any] else {
+                continue
+            }
             guard let gifDict = properties[kCGImagePropertyGIFDictionary] as? NSDictionary else { continue }
             guard let frameDuration = gifDict[kCGImagePropertyGIFDelayTime] as? NSNumber else { continue }
             totalDuration += frameDuration.doubleValue

@@ -36,11 +36,22 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
         $0.numberOfLines = 1
     }
     
+    //标签
+    private lazy var lableView = CustomCornerLabel().then{
+        $0.backgroundColor = .appPrimary
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 13)
+        $0.textColor = .white
+        $0.cornerRadii.topLeft = 8
+        $0.cornerRadii.bottomRight = 15
+    }
+    
     override func setupUI() {
         cardView.addSubview(coverImage)
         cardView.addSubview(avator)
         cardView.addSubview(titleView)
         cardView.addSubview(descView)
+        cardView.addSubview(lableView)
         contentView.addSubview(cardView)
     
         cardView.snp.makeConstraints {
@@ -80,6 +91,13 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
             $0.left.equalTo(avator.snp.right).offset(5)
             $0.right.equalToSuperview().inset(10)
         }
+        
+        lableView.snp.makeConstraints{
+            $0.left.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.width.equalTo(50)
+            $0.height.equalTo(20)
+        }
     }
     
     override func bind(_ item: HomeModelIssueListItemList?,index:Int) {
@@ -87,9 +105,11 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
         let avatorUrl = item?.data?.author?.icon.httpsUrlString ?? AppConstant.EMPTY
         let desc = item?.data?.author?.description ?? AppConstant.EMPTY
         let title = item?.data?.author?.name ?? AppConstant.EMPTY
+        let tag = item?.data?.category ?? AppConstant.EMPTY
         coverImage.loadRoundedImage(imageUrl)
         avator.loadRoundedImage(avatorUrl, radius: 25)
         titleView.text = title
         descView.text = desc
+        lableView.text = tag
     }
 }

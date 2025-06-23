@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // App 启动初始化回调
     private func initApp() {
+        //初始化图片加载
+        ImageLoaderConfig.setupDefaultConfig()
+        //设置主窗口
         Router.shared.setUIWindow(uiWindow: window)
         // 全局配置
         configureAppearance()

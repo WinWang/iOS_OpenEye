@@ -18,24 +18,24 @@ class MineViewController: BaseViewController<MineViewModel> {
         label.textColor = .white
         return label
     }()
-
-    // 按钮
-    private lazy var homeButton = {
-        let button = UIButton()
-        button.setTitle("跳转测试", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
-        // 设置背景色（默认状态）
-        button.backgroundColor = UIColor.appPrimary
-        // 设置边框和圆角
-        button.layer.borderWidth = 2.0
-        button.layer.borderColor = UIColor.appPrimary.cgColor
-        button.layer.cornerRadius = 8.0
-        button.layer.masksToBounds = true
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) // 整体内边距
-        return button
-    }()
+    
+    //测试标签
+    private lazy var testSettingView = SettingView().then{
+        $0.setTitle("测试集合页面")
+        $0.setImageIcon("icon_test")
+        $0.clickAction = {
+            Router.shared.push(.test)
+        }
+    }
+    
+    //关于标签
+    private lazy var aboutSettingView = SettingView().then{
+        $0.setTitle("关于")
+        $0.setImageIcon("icon_about")
+        $0.clickAction = {
+            Router.shared.push(.test)
+        }
+    }
 
     // 顶部图片
     private lazy var headImage: UIImageView = {
@@ -53,10 +53,12 @@ class MineViewController: BaseViewController<MineViewModel> {
     }()
 
     override func initView() {
+        view.isUserInteractionEnabled = true
         view.addSubview(headImage)
         view.addSubview(userNameLabel)
         view.addSubview(avatorImage)
-        view.addSubview(homeButton)
+        view.addSubview(testSettingView)
+        view.addSubview(aboutSettingView)
         // 背景图片
         headImage.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -75,20 +77,23 @@ class MineViewController: BaseViewController<MineViewModel> {
             make.top.equalTo(avatorImage.snp.bottom).offset(10)
         }
 
-        // 按钮
-        homeButton.snp.makeConstraints { make in
-            make.top.equalTo(headImage.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().inset(20)
+        //测试按钮
+        testSettingView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.top.equalTo(headImage.snp.bottom)
         }
+        
+        //关于按钮
+        aboutSettingView.snp.makeConstraints{
+            $0.width.equalToSuperview()
+            $0.height.equalTo(50)
+            $0.top.equalTo(testSettingView.snp.bottom)
+        }
+        
     }
 
     override func initData() {
         avatorImage.loadRoundedImage(avatorUrl, radius: 30)
     }
 
-    // 点击事件
-    @objc private func tapButton() {
-        Router.shared.push(.test)
-    }
 }
