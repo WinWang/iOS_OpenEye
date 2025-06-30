@@ -119,12 +119,11 @@ class StateLayout: UIView {
         // 添加内容容器和占位容器
         addSubview(contentContainer)
         addSubview(holdContentContainer)
-
         // 组合View
         holdContentContainer.addArrangedSubview(imageView)
         holdContentContainer.addArrangedSubview(textView)
         holdContentContainer.addArrangedSubview(retryButton)
-
+        //设置约束
         setupConstraints()
     }
 
@@ -285,15 +284,15 @@ class StateLayout: UIView {
         case .error:
             imageWidth = 260
             imageHeight = 130
-            return UIImage(named: "error")
+            return UIImage(named: "eye_error")
         case .networkError:
             imageWidth = 260
             imageHeight = 130
-            return UIImage(named: "timeout")
+            return UIImage(named: "eye_timeout")
         case .empty:
             imageWidth = 260
             imageHeight = 130
-            return UIImage(named: "empty")
+            return UIImage(named: "eye_empty")
         case .custom:
             imageWidth = 260
             imageHeight = 130

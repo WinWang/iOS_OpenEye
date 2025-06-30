@@ -28,7 +28,7 @@ class CommonTitleBar: UIView {
     // 返回按钮
     private lazy var backButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setImage(UIImage(named: "back"), for: .normal)
+        btn.setImage(UIImage(named: "back_icon"), for: .normal)
         btn.tintColor = .white
         btn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         return btn

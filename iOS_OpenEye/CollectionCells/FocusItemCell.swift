@@ -20,7 +20,7 @@ class FocusItemCell : BaseTableViewCell<FocusModelItemListDataItemList>{
     //描述View
     private lazy var descView = UILabel().then{
         $0.font = UIFont.systemFont(ofSize: 16)
-        $0.numberOfLines = 0
+        $0.numberOfLines = 1
         $0.textColor = .color_999999
     }
     
@@ -54,7 +54,7 @@ class FocusItemCell : BaseTableViewCell<FocusModelItemListDataItemList>{
         }
         descView.snp.makeConstraints{
             $0.top.equalTo(titleView.snp.bottom).offset(6)
-            $0.left.equalToSuperview().offset(10)
+            $0.leading.trailing.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(10)
         }
         lableView.snp.makeConstraints{
