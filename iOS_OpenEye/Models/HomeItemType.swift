@@ -8,4 +8,5 @@
 enum HomeItemType {
     static let banner = 0
     static let list = 1
+    static let header = 2
 }

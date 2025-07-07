@@ -38,4 +38,14 @@ class OpenEyeApiService: APIServiceType {
     func getRankList(rankType:String) ->AnyPublisher<HomeModel,APIError>{
         return requestPublisher(.rank(rankType: rankType))
     }
+    
+    //获取关联视频接口
+    func getRelationInfo(id:Int)->AnyPublisher<HomeModel,APIError>{
+        return requestPublisher(.relation(id: id))
+    }
+    
+    //获取分类详情列表接口
+    func getCategoryDetailList(id:Int,pageIndex:Int)->AnyPublisher<HomeModel,APIError>{
+        return requestPublisher(.categoryDetail(id: id, pageIndex: pageIndex))
+    }
 }

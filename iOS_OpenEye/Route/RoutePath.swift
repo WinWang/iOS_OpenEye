@@ -17,6 +17,8 @@ enum RoutePath {
     private static let refreshPath = "openEye://refresh"
     // 页面状态页面
     private static let stateLayoutPath = "openEye://stateLayout"
+    //分类详情列表页面
+    private static let categoryDetailListPath = "openEye://categoryDetail"
     
     // 路由枚举定义
     case main
@@ -36,8 +38,10 @@ enum RoutePath {
     // 页面状态页面
     case statePage
     
-    // path获取定义
+    //分类详情
+    case categoryDetail
     
+    // path获取定义
     var path: String {
         switch self {
         case .main:
@@ -52,6 +56,8 @@ enum RoutePath {
             return Self.refreshPath
         case .statePage:
             return Self.stateLayoutPath
+        case .categoryDetail:
+            return Self.categoryDetailListPath
         }
     }
     
@@ -63,7 +69,7 @@ enum RoutePath {
     
     // 详情页路由
     static var detailPattern: String {
-        return detailPath + "<id>"
+        return detailPath + "<int:id>"
     }
     
     // 测试页面-入口
@@ -84,5 +90,10 @@ enum RoutePath {
     // 页面状态测试
     static var stateLayoutPattern: String {
         return stateLayoutPath
+    }
+    
+    //分类详情
+    static var categoryDetailPattern:String {
+        return categoryDetailListPath
     }
 }

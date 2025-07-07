@@ -47,10 +47,7 @@ class MineViewController: BaseViewController<MineViewModel> {
     }()
 
     // Avator图片
-    private lazy var avatorImage = {
-        let image = UIImageView()
-        return image
-    }()
+    private lazy var avatorImage = UIImageView()
 
     override func initView() {
         view.isUserInteractionEnabled = true
@@ -89,7 +86,6 @@ class MineViewController: BaseViewController<MineViewModel> {
             $0.height.equalTo(50)
             $0.top.equalTo(testSettingView.snp.bottom)
         }
-        
     }
 
     override func initData() {

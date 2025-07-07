@@ -47,6 +47,9 @@ class HotRankViewController : BaseViewController<HotRankViewModel>,JXSegmentedLi
             $0.edges.equalToSuperview()
         }
         rankAdapter.register(cellType: HomeNewItemCell.self, forItemType: HomeItemType.list)
+        rankAdapter.onItemClick = {(_ ,item) in
+            Router.shared.push(.detail(id: item.data?.id ?? 0),context: ["playUrl":item.data?.playUrl?.httpsUrlString ?? AppConstant.EMPTY])
+        }
         rankAdapter.bindTableView(tableView)
     }
     

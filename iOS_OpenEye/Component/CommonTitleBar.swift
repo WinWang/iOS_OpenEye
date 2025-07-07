@@ -1,5 +1,6 @@
 import SnapKit
 import UIKit
+import Then
 
 //
 //  TitleBar.swift 通用标题栏
@@ -9,10 +10,9 @@ import UIKit
 
 class CommonTitleBar: UIView {
     // 内容容器视图
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private lazy var contentView: UIView = UIView()
+    //背景容器-主要是为了处理背景alpha
+    private lazy var bgContentView = UIView()
 
     // 状态栏视图
     private lazy var statusBarView: UIView = {
@@ -70,7 +70,10 @@ class CommonTitleBar: UIView {
     }
 
     private func setupUI() {
-        backgroundColor = .appPrimary
+        //backgroundColor = .appPrimary
+        statusBarView.backgroundColor = .appPrimary
+        bgContentView.backgroundColor = .appPrimary
+        addSubview(bgContentView)
         addSubview(contentView)
         contentView.addSubview(backButton)
         contentView.addSubview(titleLabel)
@@ -80,6 +83,10 @@ class CommonTitleBar: UIView {
             $0.top.equalTo(statusBarView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(44) // 固定内容区域高度
+        }
+        //背景关联
+        bgContentView.snp.makeConstraints{
+            $0.edges.equalTo(contentView.snp.edges)
         }
         // 原有控件约束调整
         backButton.snp.makeConstraints {
@@ -113,7 +120,13 @@ class CommonTitleBar: UIView {
 
     // 设置titleBar背景颜色
     func setBackgroundColor(_ color: UIColor) {
-        backgroundColor = color
+        statusBarView.backgroundColor = color
+        bgContentView.backgroundColor = color
+    }
+    
+    func setTitleBarAlpha(alpha:CGFloat){
+        statusBarView.alpha = alpha
+        bgContentView.alpha = alpha
     }
 
     // 设置标题属性

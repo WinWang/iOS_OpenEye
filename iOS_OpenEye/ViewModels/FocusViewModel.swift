@@ -22,7 +22,7 @@ class FocusViewModel :BaseViewModel{
             self?.focusList = focusData.itemList ?? []
         },
         error: { error in
-             logDebug("网络请求错误\(error.errorDescription)")
+            logDebug("网络请求错误\(String(describing: error.errorDescription))")
         }
     )}
 }

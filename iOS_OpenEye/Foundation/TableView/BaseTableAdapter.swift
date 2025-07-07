@@ -46,6 +46,8 @@ class BaseTableViewAdapter<T:BaseItem>: NSObject,UITableViewDataSource, UITableV
     var onItemClick: ((IndexPath, T) -> Void)?
     // 长按事件
     var onItemLongPress: ((IndexPath, T) -> Void)?
+    //滚动监听
+    var onScroll:((_ scrollView:UIScrollView)->Void)?
     
     //设置新数据实体
     func setNewData(_ data: [T]) {
@@ -128,6 +130,11 @@ class BaseTableViewAdapter<T:BaseItem>: NSObject,UITableViewDataSource, UITableV
         delegate?.onItemLongPress(indexPath: indexPath, itemData: item)
         onItemLongPress?(indexPath, item)
     }
+    
+    //滚动监听
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         onScroll?(scrollView)
+     }
     /**********************************************************************DataSource和Delegate实现类***END**************************************************************************************************************/
     
 }

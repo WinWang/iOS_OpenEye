@@ -95,7 +95,7 @@ class HomeItemCell: UITableViewCell {
     
     func bindItemData(_ item: HomeModelIssueListItemListData?) {
         let imageUrl = item?.cover?.feed?.httpsUrlString ?? AppConstant.EMPTY
-        let avatorUrl = item?.author?.icon.httpsUrlString ?? AppConstant.EMPTY
+        let avatorUrl = item?.author?.icon?.httpsUrlString ?? AppConstant.EMPTY
         let title = item?.author?.name ?? AppConstant.EMPTY
         let desc = item?.author?.description ?? AppConstant.EMPTY
         coverImage.loadRoundedImage(imageUrl)

@@ -14,6 +14,8 @@ enum OpenEyeApi {
     case category
     case topic(pageIndex: Int)
     case rank(rankType: String)
+    case relation(id: Int)
+    case categoryDetail(id: Int, pageIndex: Int)
 }
 
 extension OpenEyeApi: TargetType {
@@ -33,12 +35,22 @@ extension OpenEyeApi: TargetType {
             return "api/v3/specialTopics"
         case .rank:
             return "api/v4/rankList/videos"
+        case .relation:
+            return "api/v4/video/related"
+        case .categoryDetail:
+            return "api/v4/categories/videoList"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .home, .focus, .category, .topic, .rank:
+        case .home,
+             .focus,
+             .category,
+             .topic,
+             .rank,
+             .relation,
+             .categoryDetail:
             return .get
         }
     }
@@ -55,6 +67,12 @@ extension OpenEyeApi: TargetType {
             return .requestParameters(parameters: ["strategy": rankType], encoding: URLEncoding.queryString)
         case .topic(let pageIndex):
             return .requestParameters(parameters: ["start": pageIndex], encoding: URLEncoding.queryString)
+        case .relation(let id):
+            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
+        case .categoryDetail(let id, let pageIndex):
+            return .requestParameters(parameters: [
+                "id": id, "start": pageIndex, "udid": AppConstant.UUID, "deviceModel": AppConstant.DEVICE_NUM
+            ], encoding: URLEncoding.queryString)
         }
     }
 

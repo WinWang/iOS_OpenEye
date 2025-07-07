@@ -28,6 +28,7 @@ class HomeViewController: BaseViewController<HomeViewModel>{
     //TableAdapter
     private lazy var homeAdapter = BaseTableViewAdapter<HomeModelIssueListItemList>()
 
+    
     override func initView() {
         addTitleBar(titleBar)
         view.addSubview(stateLayout)
@@ -75,7 +76,7 @@ class HomeViewController: BaseViewController<HomeViewModel>{
                  logDebug("点击了Banner->")
                  break
              case HomeItemType.list:
-                 Router.shared.push(.detail(id: item.data?.id ?? 0))
+                 Router.shared.push(.detail(id: item.data?.id ?? 0),context: ["playUrl":item.data?.playUrl?.httpsUrlString ?? AppConstant.EMPTY])
                  break
              default:
                  break

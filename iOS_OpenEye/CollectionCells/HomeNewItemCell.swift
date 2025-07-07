@@ -102,7 +102,7 @@ class HomeNewItemCell : BaseTableViewCell<HomeModelIssueListItemList>{
     
     override func bind(_ item: HomeModelIssueListItemList?,index:Int) {
         let imageUrl = item?.data?.cover?.feed?.httpsUrlString ?? AppConstant.EMPTY
-        let avatorUrl = item?.data?.author?.icon.httpsUrlString ?? AppConstant.EMPTY
+        let avatorUrl = item?.data?.author?.icon?.httpsUrlString ?? AppConstant.EMPTY
         let desc = item?.data?.author?.description ?? AppConstant.EMPTY
         let title = item?.data?.author?.name ?? AppConstant.EMPTY
         let tag = item?.data?.category ?? AppConstant.EMPTY

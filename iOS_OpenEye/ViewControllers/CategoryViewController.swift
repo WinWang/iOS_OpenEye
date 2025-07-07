@@ -48,8 +48,13 @@ class CategoryViewController : BaseViewController<CategoryViewModel>,JXSegmented
         categoryAdapter.register(cellType: CategoryItemCell.self, forItemType: 0)
         categoryAdapter.bindCollectionView(collectionView)
         categoryAdapter.onItemClick = {_, item in
-            
-            
+            let itemData =  item as! CategoryModelChild
+            let param =  [
+                "title":itemData.name ?? AppConstant.EMPTY,
+                "backUrl":itemData.headerImage?.httpsUrlString ?? AppConstant.EMPTY,
+                "id":itemData.id ?? 0
+            ]
+            Router.shared.push(RoutePath.categoryDetail,context: param)
         }
         //下拉刷新
         collectionView.mj_header = MJRefreshNormalHeader(){[weak self] in

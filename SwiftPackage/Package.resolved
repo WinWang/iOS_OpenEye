@@ -1,5 +1,5 @@
 {
-  "originHash" : "3577e374dea2cdc94c456c5c60283dfef9fcc75a2108b4cdf4ca38adb1f56b01",
+  "originHash" : "f80e21f2f0bf51d6639ccaae167a8d90205e053f34eb0fdbeb32442d8b628c20",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
         "version" : "3.8.5"
+      }
+    },
+    {
+      "identity" : "combineext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CombineCommunity/CombineExt.git",
+      "state" : {
+        "revision" : "d7b896fa9ca8b47fa7bcde6b43ef9b70bf8c1f56",
+        "version" : "1.8.1"
       }
     },
     {

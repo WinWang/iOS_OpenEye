@@ -32,6 +32,7 @@ struct HomeModelIssueList: Codable {
 
 struct HomeModelIssueListItemList: BaseItem,Codable {
     var itemType: Int? = HomeItemType.list
+    var headerImage:String? = AppConstant.EMPTY
     var type: String?
     var data: HomeModelIssueListItemListData?
     var id: Int?
@@ -45,6 +46,11 @@ struct HomeModelIssueListItemList: BaseItem,Codable {
            case adIndex
            case bannerList
        }
+    
+    init (headerImage:String,itemType:Int){
+        self.itemType = itemType
+        self.headerImage = headerImage
+    }
 
     init(itemType: Int = HomeItemType.list,
          type: String? = nil,
@@ -100,8 +106,8 @@ struct HomeModelIssueListItemListData: Codable {
 
 struct AuthorModel: Codable {
     let id: Int
-    let icon, name, description, link: String
-    let latestReleaseTime, videoNum: Int
+    let icon, name, description, link: String?
+    let latestReleaseTime, videoNum: Int?
     let adTrack: JSONAny?
     let follow: RootObjectFollow?
     let shield: RootObjectShield?

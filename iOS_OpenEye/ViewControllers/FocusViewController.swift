@@ -62,6 +62,9 @@ class FocusViewController :BaseViewController<FocusViewModel>,JXSegmentedListCon
     private func initTableView(){
         // 注册Cell类型
         focusAdapter.register(cellType: FocusItemCell.self, forItemType: 0)
+        focusAdapter.onItemClick = { (_,item) in
+            Router.shared.push(.detail(id: item.data?.id ?? 0),context: ["playUrl":item.data?.playUrl?.httpsUrlString ?? AppConstant.EMPTY])
+        }
         focusAdapter.bindTableView(tableView)
     }
     

@@ -7,6 +7,8 @@
 
 import UIKit
 
+private var onClickKey: Void?
+
 extension UIView {
     /// 设置圆角-阴影
     /// 模拟 Android CardView 效果，专用于 TableView/CollectionView Cell 场景
@@ -36,4 +38,20 @@ extension UIView {
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale
     }
+    
+    
+    /// 给UIView添加点击事件，类似Android的setOnClick
+    func setOnClick(_ action: @escaping () -> Void) {
+        isUserInteractionEnabled = true
+        objc_setAssociatedObject(self, &onClickKey, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        addGestureRecognizer(tap)
+    }
+
+    @objc private func handleTap() {
+        if let action = objc_getAssociatedObject(self, &onClickKey) as? () -> Void {
+            action()
+        }
+    }
+    
 }
