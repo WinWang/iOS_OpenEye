@@ -16,6 +16,7 @@ enum OpenEyeApi {
     case rank(rankType: String)
     case relation(id: Int)
     case categoryDetail(id: Int, pageIndex: Int)
+    case topicDetail(id:Int)
 }
 
 extension OpenEyeApi: TargetType {
@@ -39,6 +40,8 @@ extension OpenEyeApi: TargetType {
             return "api/v4/video/related"
         case .categoryDetail:
             return "api/v4/categories/videoList"
+        case .topicDetail(let id):
+            return "api/v3/lightTopics/internal/\(id)"
         }
     }
 
@@ -50,6 +53,7 @@ extension OpenEyeApi: TargetType {
              .topic,
              .rank,
              .relation,
+             .topicDetail,
              .categoryDetail:
             return .get
         }
@@ -62,6 +66,8 @@ extension OpenEyeApi: TargetType {
         case .focus(let pageIndex):
             return .requestParameters(parameters: ["start": pageIndex], encoding: URLEncoding.queryString)
         case .category:
+            return .requestPlain
+        case .topicDetail:
             return .requestPlain
         case .rank(let rankType):
             return .requestParameters(parameters: ["strategy": rankType], encoding: URLEncoding.queryString)

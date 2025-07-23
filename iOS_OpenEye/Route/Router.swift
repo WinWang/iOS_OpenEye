@@ -55,6 +55,13 @@ final class Router {
         navigator.register(RoutePath.stateLayoutPattern) { _, _, _ in
             TestStateViewController()
         }
+        //专栏详情页面
+        navigator.register(RoutePath.topicDetailPattern) { _, values, _ in
+            if let id = values["id"] as? Int {
+                return TopicDetailViewController(id: id)
+            }
+            return nil
+        }
     }
 
     func setUIWindow(uiWindow: UIWindow?) {

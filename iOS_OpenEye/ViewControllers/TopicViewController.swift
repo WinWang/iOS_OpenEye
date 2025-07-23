@@ -64,6 +64,10 @@ class TopicViewController :BaseViewController<TopicViewModel>,JXSegmentedListCon
     private func initTableView(){
         adapter.register(cellType: TopicItemCell.self, forItemType: 0)
         adapter.bindTableView(tableView)
+        adapter.onItemClick = { (index,item) in
+            let id = item.data.id
+            Router.shared.push(.topicDetail(id: id))
+        }
         tableView.mj_header = MJRefreshNormalHeader(){ [weak self] in
             self?.viewModel.pageIndex = 0
             self?.viewModel.getTopicList()
