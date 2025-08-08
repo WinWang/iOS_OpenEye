@@ -12,8 +12,10 @@ import UIKit
 class TopicDetailCell: BaseTableViewCell<TopicDetailModelItemList> {
     private var index: Int = 0
     
+    private lazy var customControllerView = CustomeListPlayerControllerView()
+    
     // 播放器实例
-    private lazy var player = BMPlayer().then{
+    private lazy var player = BMPlayer(customControlView: customControllerView).then{
         $0.autoPlay()
     }
     
