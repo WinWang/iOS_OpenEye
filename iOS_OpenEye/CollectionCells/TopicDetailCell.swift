@@ -12,15 +12,20 @@ import UIKit
 class TopicDetailCell: BaseTableViewCell<TopicDetailModelItemList> {
     private var index: Int = 0
     
-    private lazy var customControllerView = CustomeListPlayerControllerView()
+    private lazy var customControllerView = VideoCustomController()
     
     // 播放器实例
-    private lazy var player = BMPlayer(customControlView: customControllerView).then{
-        $0.autoPlay()
+    private lazy var player = BMPlayer(customControlView: customControllerView).then {
+        $0.pause()
     }
     
     // 封面图片
-//    private lazy var coverImage = UIImageView()
+    private lazy var coverImage = UIImageView()
+    
+    // 播放器容器
+    private lazy var playerContainer = UIView().then{
+        $0.backgroundColor = .appPrimary
+    }
     
     // cardView
     private lazy var cardView = UIView().then {
@@ -43,10 +48,12 @@ class TopicDetailCell: BaseTableViewCell<TopicDetailModelItemList> {
     
     override func setupUI() {
         contentView.addSubview(cardView)
-        cardView.addSubview(player)
+        cardView.addSubview(playerContainer)
         cardView.addSubview(descView)
         cardView.addSubview(titleView)
-//        cardView.addSubview(coverImage)
+        cardView.addSubview(coverImage)
+        playerContainer.addSubview(player)
+    
         
         cardView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(5)
@@ -61,20 +68,27 @@ class TopicDetailCell: BaseTableViewCell<TopicDetailModelItemList> {
             shadowRadius: 8
         )
         
-//        coverImage.snp.makeConstraints{
-//            $0.height.equalTo(220)
-//            $0.top.equalToSuperview().offset(10)
-//            $0.leading.trailing.equalToSuperview().inset(6)
-//        }
-        
-        player.snp.makeConstraints {
+        coverImage.snp.makeConstraints{
             $0.height.equalTo(220)
             $0.top.equalToSuperview().offset(10)
             $0.leading.trailing.equalToSuperview().inset(6)
         }
+        
+//
+        playerContainer.snp.makeConstraints {
+            $0.height.equalTo(220)
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.trailing.equalToSuperview().inset(6)
+        }
+        
+        player.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        customControllerView.setupPlayerConstraints(player: player, superview: playerContainer)
 
         titleView.snp.makeConstraints {
-            $0.top.equalTo(player.snp.bottom).offset(10)
+            $0.top.equalTo(coverImage.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(10)
         }
         
