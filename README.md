@@ -5,7 +5,7 @@ iOS版本OpenEye应用
 
 <div style="display: flex; flex-direction: row">
 <img src="https://s2.loli.net/2025/08/18/gzyMtIrwYNsCxvW.png" width="25%">
-<img src="https://s2.loli.net/2023/11/29/jXMyaw2c9UzBseW.png" width="25%">
+<img src="https://s2.loli.net/2025/08/18/ME8G2LZpObeUhvy.png" width="25%">
 <img src="https://s2.loli.net/2025/08/18/qb5eJsYkiTP8xAM.png" width="25%">
 </div>
 
