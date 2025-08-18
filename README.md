@@ -1,6 +1,6 @@
 # iOS_OpenEye
 iOS版本OpenEye应用，该项目使用swift语言开发，项目基于SnapKit+Combine+Moya+URLNavigator框架开发和封装，具体内容包含如下：<br>
-1、项目依赖使用Cocoa Pods+SwiftPageckManager混合以来，主要为了测试两种依赖在项目里面的兼容性 <br>
+1、项目依赖使用Cocoa Pods+SwiftPageckManager混合依赖，主要为了测试两种依赖在项目里面的兼容性 <br>
 2、路由基于URLNavigator封装 <br>
 3、网络框架基于Moya框架，配合Combine封装页面状态管理 <br>
 4、类似Android列表组件封装TableView和CollectionView的Adpater，简化代码 <br>
