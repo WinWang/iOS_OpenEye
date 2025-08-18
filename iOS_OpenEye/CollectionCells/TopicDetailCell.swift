@@ -74,7 +74,6 @@ class TopicDetailCell: BaseTableViewCell<TopicDetailModelItemList> {
             $0.leading.trailing.equalToSuperview().inset(6)
         }
         
-//
         playerContainer.snp.makeConstraints {
             $0.height.equalTo(220)
             $0.top.equalToSuperview().offset(10)

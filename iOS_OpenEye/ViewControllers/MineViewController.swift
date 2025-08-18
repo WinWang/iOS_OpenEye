@@ -18,22 +18,31 @@ class MineViewController: BaseViewController<MineViewModel> {
         label.textColor = .white
         return label
     }()
-    
-    //测试标签
-    private lazy var testSettingView = SettingView().then{
+
+    // 测试标签
+    private lazy var testSettingView = SettingView().then {
         $0.setTitle("测试集合页面")
         $0.setImageIcon("icon_test")
         $0.clickAction = {
             Router.shared.push(.test)
         }
     }
-    
-    //关于标签
-    private lazy var aboutSettingView = SettingView().then{
+
+    // 关于标签
+    private lazy var aboutSettingView = SettingView().then {
         $0.setTitle("关于")
         $0.setImageIcon("icon_about")
         $0.clickAction = {
-            Router.shared.push(.test)
+            DialogManager.shared
+                .dialog()
+                .setTitle("关于")
+                .setContent(
+                    "该项目是使用Swift+UIKit+Moya+Combine开发的项目，主要为了学习iOS开发相关知识，可以给新学习入门的小伙伴提供一些参考，项目也做了一些基础组件的封装和测试，如果大佬们有好的实现方式也请不吝赐教。"
+                )
+                .setTapToDismiss(true)
+                .setPositiveTitle("确定")
+                .showNegativeButton(false)
+                .show()
         }
     }
 
@@ -74,14 +83,14 @@ class MineViewController: BaseViewController<MineViewModel> {
             make.top.equalTo(avatorImage.snp.bottom).offset(10)
         }
 
-        //测试按钮
+        // 测试按钮
         testSettingView.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.top.equalTo(headImage.snp.bottom)
         }
-        
-        //关于按钮
-        aboutSettingView.snp.makeConstraints{
+
+        // 关于按钮
+        aboutSettingView.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(50)
             $0.top.equalTo(testSettingView.snp.bottom)
@@ -91,5 +100,4 @@ class MineViewController: BaseViewController<MineViewModel> {
     override func initData() {
         avatorImage.loadRoundedImage(avatorUrl, radius: 30)
     }
-
 }

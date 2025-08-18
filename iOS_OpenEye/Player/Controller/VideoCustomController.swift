@@ -34,12 +34,13 @@ class VideoCustomController: BMPlayerControlView {
             switch type {
             case .fullscreen, .back:
                 if !isFullscreen {
-                    logDebug("全屏->")
                     enterFullScreen()
                 } else {
                     exitFullScreen()
-                    logDebug("非全屏->")
                 }
+            case .play:
+                VideoPlayerManager.shared.setCurrentPlayer(player: player)
+                break
             default:
                 break
             }
